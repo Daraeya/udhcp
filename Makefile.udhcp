@@ -19,6 +19,12 @@ USRSHAREDIR = $(DESTDIR)$(prefix)/share
 
 # Set to the prefix of your cross-compiler
 #CROSS_COMPILE=arm-uclibc-
+#CROSS_COMPILE=mipsel-linux-gnu-
+#CROSS_COMPILE=arm-linux-gnueabihf-
+CROSS_COMPILE=aarch64-linux-gnu-
+
+# static Library at compile
+UDHCP_STATICLIB=1
 
 
 #---------------------------------------------------#
@@ -64,6 +70,10 @@ STRIP=true
 else
 CFLAGS += -Os -fomit-frame-pointer
 STRIP=$(CROSS_COMPILE)strip
+endif
+
+ifdef UDHCP_STATICLIB
+CFLAGS += -static
 endif
 
 all: $(EXEC1) $(EXEC2) $(EXEC3)
